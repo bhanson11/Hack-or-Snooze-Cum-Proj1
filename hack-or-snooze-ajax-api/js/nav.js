@@ -38,7 +38,9 @@ function updateNavOnLogin() {
 function navSubmitNewStoryClick(evt) {
   console.debug("navSubmitNewStoryClick", evt);
   hidePageComponents();
-  $allStoriesList.show();
+  const submitForm = document.getElementById("submit-form");
+  submitForm.classList.remove("hidden");
+  $allStoriesList.show(); 
 }
 
 $navSubmitNewStory.on("click", navSubmitNewStoryClick);
