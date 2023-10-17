@@ -10,6 +10,10 @@ const $allStoriesList = $("#all-stories-list");
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
+const $submitForm = $('#submitform'); // tied to main.js calling that submitForm out
+
+const $navSubmitNewStory = $("#nav-submit-story") // tied to navSumbitNewStoryClick on nav.js
+
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");

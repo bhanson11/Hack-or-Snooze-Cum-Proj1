@@ -51,7 +51,7 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function addNewStory() {
+async function addNewStory() {
   console.debug("addNewStory");
   
   // grab info from form for story
@@ -60,6 +60,8 @@ function addNewStory() {
   const author = $("#add-author").val();
   const username = currentUser.username
   const storyData = {title, url, author, username }; 
+
+  const story = await storyList.addStory(currentUser, storyData);
 
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story); //prepend to add story to the top of the page 

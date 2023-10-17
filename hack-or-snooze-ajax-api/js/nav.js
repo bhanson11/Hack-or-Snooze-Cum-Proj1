@@ -40,3 +40,5 @@ function navSubmitNewStoryClick(evt) {
   hidePageComponents();
   $allStoriesList.show();
 }
+
+$navSubmitNewStory.on("click", navSubmitNewStoryClick);
