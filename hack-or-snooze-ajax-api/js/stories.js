@@ -64,7 +64,7 @@ async function addNewStory() {
   const story = await storyList.addStory(currentUser, storyData).catch(function (error) {
     console.error("Error adding story:", error);
   });
-  // const story = await storyList.addStory(currentUser, storyData);
+  // const story = await storyList.addStory(currentUser, storyData); then catch errors from submitting or adding story
 
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story); //prepend to add story to the top of the page 
