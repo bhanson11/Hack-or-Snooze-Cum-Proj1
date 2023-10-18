@@ -61,7 +61,10 @@ async function addNewStory() {
   const username = currentUser.username
   const storyData = {title, url, author, username }; 
 
-  const story = await storyList.addStory(currentUser, storyData);
+  const story = await storyList.addStory(currentUser, storyData).catch(function (error) {
+    console.error("Error adding story:", error);
+  });
+  // const story = await storyList.addStory(currentUser, storyData);
 
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story); //prepend to add story to the top of the page 
@@ -69,6 +72,7 @@ async function addNewStory() {
   // hide the form and reset 
   $submitForm.slideUp("slow");
   $submitForm.trigger("reset");
+  
 }
 
 $submitForm.on("submit", addNewStory);
