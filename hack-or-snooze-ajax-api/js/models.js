@@ -21,11 +21,10 @@ class Story {
     this.createdAt = createdAt;
   }
 
-  /** Parses hostname out of URL and returns it. */
+    /** Parses hostname out of URL user input from form and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).host;
   }
 }
 
