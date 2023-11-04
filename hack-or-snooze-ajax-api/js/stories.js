@@ -51,28 +51,28 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-async function addNewStory() {
+async function addNewStory(evt) {
   console.debug("addNewStory");
+  evt.preventDefault();
   
   // grab info from form for story
   const title = $("#add-title").val();
   const url = $("#add-url").val();
   const author = $("#add-author").val();
   const username = currentUser.username
-  const storyData = {title, url, author, username }; 
+  const storyData = { title, url, author, username }; 
 
   const story = await storyList.addStory(currentUser, storyData).catch(function (error) {
     console.error("Error adding story:", error);
   });
-  // const story = await storyList.addStory(currentUser, storyData); then catch errors from submitting or adding story
-
+  // const story = await storyList.addStory(currentUser, storyData); 
+  
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story); //prepend to add story to the top of the page 
 
   // hide the form and reset 
   $submitForm.slideUp("slow");
   $submitForm.trigger("reset");
-  
 }
 
 $submitForm.on("submit", addNewStory);
