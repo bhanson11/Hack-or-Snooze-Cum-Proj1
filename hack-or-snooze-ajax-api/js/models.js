@@ -229,4 +229,10 @@ class User {
       data: { token },
     });
   }
+
+  // Return true/false if the story is among user's favorites
+
+  isFavorite(story) {
+    return this.favorites.some(s => (s.storyId === story.storyId));
+  }
 }
