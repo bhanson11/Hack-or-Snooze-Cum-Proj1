@@ -76,3 +76,4 @@ async function addNewStory(evt) {
 }
 
 $submitForm.on("submit", addNewStory);
+

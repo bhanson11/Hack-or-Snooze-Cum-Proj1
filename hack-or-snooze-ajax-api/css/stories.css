@@ -37,9 +37,13 @@
 }
 
 .story-author {
-  margin-left: 2em;
+  margin-top: 5px;
+  display: block;
+  color: #53933A;
 }
 
 .story-user {
+  margin-top: 5px;
   display: block;
+  color: #F5A539;
 }
