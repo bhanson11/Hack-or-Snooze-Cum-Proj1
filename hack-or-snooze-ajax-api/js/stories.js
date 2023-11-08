@@ -77,3 +77,42 @@ async function addNewStory(evt) {
 
 $submitForm.on("submit", addNewStory);
 
+// List of user's own stories: 
+
+function putUserStoriesOnPage() {
+  console.debug("putUserStoriesOnPage");
+
+  $usersOwnStories.empty();
+
+  if (currentUser.ownStories.length === 0) {
+    $usersOwnStories.append("<h5>No stories added by user yet!</h5>");
+  } else {
+    // loop through all of users stories and generate HTML for them
+    for (let story of currentUser.usersOwnStories) {
+      let $story = generateStoryMarkup(story, true);
+      $usersOwnStories.append($story);
+    }
+  }
+  $usersOwnStories.show();
+}
+
+//list of favorites to star and un-starr a story
+
+function putFavoritesListOnPage() {
+  console.debug("putFavoritesListOnPage");
+
+  $favoritedStories.empty();
+
+  if (currentUser.favorites.length === 0) {
+    $favoritedStories.append("<h5>No favorites added!</h5>");
+  } else {
+    // loop through all of users favorites and generate HTML for them
+    for (let story of currentUser.favorites) {
+      const $story = generateStoryMarkup(story);
+      $favoritedStories.append($story);
+    }
+  }
+
+  $favoritedStories.show();
+}
+
