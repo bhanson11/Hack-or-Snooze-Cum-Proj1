@@ -44,3 +44,22 @@ function navSubmitNewStoryClick(evt) {
 }
 
 $navSubmitNewStory.on("click", navSubmitNewStoryClick);
+
+// Show favorite stories on click on "favorites" in nav
+function navFavsClick(evt) {
+  console.debug("navFavsClick", evt);
+  hidePageComponents();
+  putFavoritesListOnPage();
+}
+
+$body.on("click", "#nav-favorites", navFavsClick);
+
+//Show Users stories on clicking "my stories" on nav
+function navMyStoriesClick(evt) {
+  console.debug("navMyStories", evt);
+  hidePageComponents();
+  putUserStoriesOnPage();
+  $ownStories.show();
+}
+
+$body.on("click", "#nav-my-stories", navMyStoriesClick);

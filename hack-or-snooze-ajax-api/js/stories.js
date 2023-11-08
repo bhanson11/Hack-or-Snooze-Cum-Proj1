@@ -35,6 +35,24 @@ function generateStoryMarkup(story) {
     `);
 }
 
+//make delete button HTML 
+function getDeleteBtnHTML() {
+  return `
+  <span> class="trash-can">
+    <i class="favs fav-trash-alt"></i>
+  </span>`;
+}
+
+//make favorite and star or unstar story
+function starFavHTML(story, user) {
+  const isFav = user.isFav(story);
+  const starType = isFav ? "favs" : "unfav";
+  return `
+  <span class="star">
+    <i class="${starType} fav-star"></i>
+  </span>`;
+}
+
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
@@ -51,6 +69,22 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+//handle deleting a story 
+async function deleteStory(evt) {
+  console.debug("deleteStory");
+
+  const $closestLi = $(evt.target).closest("li");
+  const storyId = $closestLi.attr("id");
+
+  await storyList.removeStory(currentUser, storyId);
+
+  // re-generate story list with that story deleted
+  putUserStoriesOnPage();
+}
+
+$ownStories.on("click", ".trash-can", deleteStory);
+
+//submitting new Story form
 async function addNewStory(evt) {
   console.debug("addNewStory");
   evt.preventDefault();
@@ -82,18 +116,18 @@ $submitForm.on("submit", addNewStory);
 function putUserStoriesOnPage() {
   console.debug("putUserStoriesOnPage");
 
-  $usersOwnStories.empty();
+  $ownStories.empty();
 
   if (currentUser.ownStories.length === 0) {
-    $usersOwnStories.append("<h5>No stories added by user yet!</h5>");
+    $ownStories.append("<h5>No stories added by user yet!</h5>");
   } else {
     // loop through all of users stories and generate HTML for them
-    for (let story of currentUser.usersOwnStories) {
+    for (let story of currentUser.ownStories) {
       let $story = generateStoryMarkup(story, true);
-      $usersOwnStories.append($story);
+      $ownStories.append($story);
     }
   }
-  $usersOwnStories.show();
+  $ownStories.show();
 }
 
 //list of favorites to star and un-star a story
@@ -124,7 +158,16 @@ async function toggleFavoriteStar(evt) {
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);
 
-  if ($tgt.hasClass("fas")) {
-    
+  //see if the story is already a favorite (check for presence of fav star)
+  if ($tgt.hasClass("favs")) {
+    //currently a fav so remove it from the list an unstar
+    await currentUser.removeFavorite(story);
+    $tgt.closest("i").toggleClass("favs unfav");
+  } else {
+    //currently not a fav so add it to favs list and star
+    await currentUser.addFavorite(story);
+    $tgt.closest("i").toggleClass("favs unfav");
   }
 }
+
+$storiesLists.on("click", ".star", toggleStoryFavorite);
