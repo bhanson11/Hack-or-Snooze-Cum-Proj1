@@ -96,7 +96,7 @@ function putUserStoriesOnPage() {
   $usersOwnStories.show();
 }
 
-//list of favorites to star and un-starr a story
+//list of favorites to star and un-star a story
 
 function putFavoritesListOnPage() {
   console.debug("putFavoritesListOnPage");
@@ -116,3 +116,15 @@ function putFavoritesListOnPage() {
   $favoritedStories.show();
 }
 
+async function toggleFavoriteStar(evt) {
+  console.debug("toggleFavoriteStar");
+
+  const $tgt = $(evt.target);
+  const $closestLi = $tgt.closest("li");
+  const storyId = $closestLi.attr("id");
+  const story = storyList.stories.find(s => s.storyId === storyId);
+
+  if ($tgt.hasClass("fas")) {
+    
+  }
+}
