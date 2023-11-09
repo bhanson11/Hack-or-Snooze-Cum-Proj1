@@ -19,12 +19,18 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story) {
+function generateStoryMarkup(story, showDeleteBtn = false) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+
+  // if a user is logged in, then show fav/not fav star for input to favs list
+  const showStar = Boolean(currentUser);
+
   return $(`
       <li id="${story.storyId}">
+        ${showDeleteBtn ? getDeleteBtnHTML() : ""}
+        ${showStar ? starFavHTML(story, currentUser) : ""}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -45,8 +51,8 @@ function getDeleteBtnHTML() {
 
 //make favorite and star or unstar story
 function starFavHTML(story, user) {
-  const isFav = user.isFav(story);
-  const starType = isFav ? "favs" : "unfav";
+  const isFavorite = user.isFavorite(story);
+  const starType = isFavorite ? "favs" : "unfav";
   return `
   <span class="star">
     <i class="${starType} fav-star"></i>
@@ -96,10 +102,7 @@ async function addNewStory(evt) {
   const username = currentUser.username
   const storyData = { title, url, author, username }; 
 
-  const story = await storyList.addStory(currentUser, storyData).catch(function (error) {
-    console.error("Error adding story:", error);
-  });
-  // const story = await storyList.addStory(currentUser, storyData); 
+  const story = await storyList.addStory(currentUser, storyData); 
   
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story); //prepend to add story to the top of the page 
