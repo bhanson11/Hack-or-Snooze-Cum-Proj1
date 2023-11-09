@@ -44,18 +44,18 @@ function generateStoryMarkup(story, showDeleteBtn = false) {
 //make delete button HTML 
 function getDeleteBtnHTML() {
   return `
-  <span> class="trash-can">
-    <i class="favs fav-trash-alt"></i>
+  <span class="trash-can">
+    <i class="fas fa-trash-alt"></i>
   </span>`;
 }
 
 //make favorite and star or unstar story
 function starFavHTML(story, user) {
   const isFavorite = user.isFavorite(story);
-  const starType = isFavorite ? "favs" : "unfav";
+  const starType = isFavorite ? "fas" : "far";
   return `
   <span class="star">
-    <i class="${starType} fav-star"></i>
+    <i class="${starType} fa-star"></i>
   </span>`;
 }
 
@@ -162,14 +162,14 @@ async function toggleFavoriteStar(evt) {
   const story = storyList.stories.find(s => s.storyId === storyId);
 
   //see if the story is already a favorite (check for presence of fav star)
-  if ($tgt.hasClass("favs")) {
+  if ($tgt.hasClass("fas")) {
     //currently a fav so remove it from the list an unstar
     await currentUser.removeFavorite(story);
-    $tgt.closest("i").toggleClass("favs unfav");
+    $tgt.closest("i").toggleClass("fas far");
   } else {
     //currently not a fav so add it to favs list and star
     await currentUser.addFavorite(story);
-    $tgt.closest("i").toggleClass("favs unfav");
+    $tgt.closest("i").toggleClass("fas far");
   }
 }
 

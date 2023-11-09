@@ -53,6 +53,7 @@
   display: block;
   color: #53933A;
   font-weight: bold;
+  margin-left: 2em;
 }
 
 .story-user {
@@ -60,4 +61,5 @@
   display: block;
   color: #F5A539;
   font-weight: bold;
+  margin-left: 2em;
 }
